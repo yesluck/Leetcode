@@ -2,7 +2,7 @@
 
 ### README
 1. Only record the first trial, does not include review;
-2. Only record solutions, does not include trst cases;
+2. Only record solutions, does not include test cases;
 3. Read only, not able to compile
 
 ### Log
