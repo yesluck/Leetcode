@@ -77,3 +77,37 @@ class Solution {
     }
 }
 
+
+// Mono Queue
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int n = nums.length;
+        Deque<Integer> minQueue = new ArrayDeque<>();   // head is minimum, increasing to tail
+        Deque<Integer> maxQueue = new ArrayDeque<>();   // head is maximum, decreasing to tail
+        int res = 0;
+
+        int left = 0;
+        for (int right = 0; right < n; right++) {
+            int num = nums[right];
+            while (!minQueue.isEmpty() && minQueue.peekLast() > num)
+                minQueue.pollLast();
+            while (!maxQueue.isEmpty() && maxQueue.peekLast() < num)
+                maxQueue.pollLast();
+            minQueue.offer(num);
+            maxQueue.offer(num);
+
+            // move left index to right while already larger than limit
+            while (maxQueue.peek() - minQueue.peek() > limit) {
+                // pop out the left item (similar to sliding window in 239)
+                if (nums[left] == minQueue.peek())
+                    minQueue.pop();
+                if (nums[left] == maxQueue.peek())
+                    maxQueue.pop();
+                left++;
+            }
+            res = Math.max(res, right - left + 1);
+        }
+
+        return res;
+    }
+}
