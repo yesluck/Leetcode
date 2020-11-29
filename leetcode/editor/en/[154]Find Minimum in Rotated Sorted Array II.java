@@ -28,6 +28,19 @@
 
 class Solution {
     public int findMin(int[] nums) {
-        
+        if (nums.length == 1)
+            return nums[0];
+        int n = nums.length;
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right])
+                left = mid + 1;
+            else if (nums[mid] < nums[right])
+                right = mid;
+            else    // We only need to add this comparing with 153
+                right--;
+        }
+        return nums[left];
     }
 }
