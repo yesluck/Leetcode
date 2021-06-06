@@ -66,7 +66,35 @@ class Node {
 */
 
 class Solution {
+    Node prev, leftMost;
+
     public Node connect(Node root) {
-        
+        if (root == null)
+            return root;
+
+        leftMost = root;
+        while (leftMost != null) {
+            Node curr = leftMost;
+            prev = null;        // add to track previous
+            leftMost = null;    // add to track leftmost
+            while (curr != null) {
+                processChild(curr.left);
+                processChild(curr.right);
+                curr = curr.next;
+            }
+        }
+        return root;
+    }
+
+    public void processChild(Node node) {
+        if (node == null)
+            return;
+
+        if (prev != null)
+            prev.next = node;
+        else
+            leftMost = node;
+
+        prev = node;
     }
 }

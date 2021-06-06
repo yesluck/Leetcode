@@ -30,6 +30,7 @@ class Solution {
         int n = nums.length;
         if (n == 0)
             return false;
+        // 因为要和nums[right]比，所以无论是[]还是[)必须right = n-1
         int left = 0, right = n - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
@@ -51,6 +52,40 @@ class Solution {
             } else
                 right--;
         }
-        return nums[left] == target ? true : false;
+        return nums[left] == target;
     }
 }
+
+
+// LeetCode 101 clearer and no judgement in return
+class Solution {
+    public boolean search(int[] nums, int target) {
+        int n = nums.length;
+        if (n == 0)
+            return false;
+
+        int left = 0, right = n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target)
+                return true;
+
+            if (nums[mid] > nums[right]) {
+                // 左边递增
+                if (target >= nums[left] && target < nums[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            } else if (nums[mid] < nums[right]) {
+                // 右边递增
+                if (target > nums[mid] && target <= nums[right])
+                    left = mid + 1;
+                else
+                    right = mid - 1;
+            } else
+                right--;
+        }
+        return false;
+    }
+}
+

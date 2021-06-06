@@ -116,3 +116,32 @@ class Solution {
         return p;
     }
 }
+
+
+// labuladong Solution:
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null)
+            return null;
+        ListNode start = head, end = head;
+        for (int i = 0; i < k; i++) {
+            if (end == null)
+                return head;
+            end = end.next;
+        }
+        ListNode newHead = reverse(start, end);
+        start.next = reverseKGroup(end, k);
+        return newHead;
+    }
+
+    public ListNode reverse(ListNode start, ListNode end) {
+        ListNode pre = null, cur = start, nxt = start;
+        while (cur != end) {
+            nxt = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = nxt;
+        }
+        return pre;
+    }
+}

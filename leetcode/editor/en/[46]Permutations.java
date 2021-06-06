@@ -28,7 +28,7 @@ class Solution {
             return;
         }
         for (int i = 0; i < nums.length; i++) {
-            if(temp.contains(nums[i]))  continue;
+            if(t*emp.contains(nums[i]))  continue;
             temp.add(nums[i]);
             backtracking(res, temp, nums);
             temp.remove(temp.size() - 1);
